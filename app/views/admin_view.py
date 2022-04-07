@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
-from app.serializers.admin import AdminLoginSerializer, AdminSeed
+from app.serializers.admin_serializer import AdminLoginSerializer, AdminSeed
 
 
 class AdminLoginView(APIView):

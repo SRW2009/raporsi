@@ -41,5 +41,5 @@ class AdminSeed(serializers.Serializer):
             print(e)
             HLog.create_log("koala@panda.com", activity, True, "SU successfully created")
             encoded_password = jwt.encode({"password": "koala_panda"}, SECRET_KEY, algorithm="HS256")
-            Admin.objects.create(email="koala@panda.com", password=encoded_password)
+            Admin.objects.create(email="koala@panda.com", name='koala panda', password=encoded_password)
         return{"message": "super admin created"}

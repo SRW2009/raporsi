@@ -81,9 +81,9 @@ if DEBUG:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'raporsi',
-        'USER':'postgres',
-        'PASSWORD':'koalapanda',
+        'NAME':'rapor',
+        'USER':'si',
+        'PASSWORD':'sekolahimpian',
         'HOST': 'localhost',
         "ATOMIC_REQUESTS": True,
         'PORT': 5432,
