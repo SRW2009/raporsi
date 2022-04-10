@@ -1,7 +1,6 @@
-import jwt
 from rest_framework import serializers
-from app.models import Admin, Divisi, Teacher
-from raporsi.settings import SECRET_KEY
+
+from app.models import Admin, Student, Teacher, Relation
 
 
 class AdminSerializer(serializers.ModelSerializer):
@@ -10,36 +9,44 @@ class AdminSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class DivisiSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Divisi
+        model = Student
+        fields = ['id', 'name','nis']
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
         fields = ['id', 'name']
 
 
-class ListTeacherSerializer(serializers.ModelSerializer):
-    divisi_detail = serializers.SerializerMethodField()
+class ListRelationSerializer(serializers.ModelSerializer):
+    teacher = serializers.SerializerMethodField()
+    student = serializers.SerializerMethodField()
     updated_by = serializers.SerializerMethodField()
     created_by = serializers.SerializerMethodField()
     deleted_by = serializers.SerializerMethodField()
-    password = serializers.SerializerMethodField()
+
     class Meta:
-        model = Teacher
-        fields = ['id', 'name', 'email', 'password', 'is_leader', 'divisi_detail', 'created_at','updated_at',
+        model = Relation
+        fields = ['id', 'teacher', 'student','name', 'created_at', 'updated_at',
                   'deleted_at', 'created_by', 'updated_by', 'deleted_by']
 
     @staticmethod
-    def get_password(teacher_instance):
+    def get_teacher(teacher_instance):
         try:
-            password = jwt.decode(teacher_instance.password, SECRET_KEY, algorithms=["HS256"])
-            return password['password']
+            adm = Teacher.objects.get(id=teacher_instance.teacher_id)
+            return TeacherSerializer(adm).data
         except Exception as e:
-            return str(e)
+            print(e)
+            return {"id": "", "name": ""}
 
     @staticmethod
-    def get_divisi_detail(divisi_instance):
+    def get_student(student_instance):
         try:
-            adm = Divisi.objects.get(id=divisi_instance.divisi_id)
-            return AdminSerializer(adm).data
+            adm = Student.objects.get(id=student_instance.student_id)
+            return StudentSerializer(adm).data
         except Exception as e:
             print(e)
             return {"id": "", "name": ""}
@@ -69,12 +76,12 @@ class ListTeacherSerializer(serializers.ModelSerializer):
             return {"id": "", "name": ""}
 
 
-class TeacherSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(required=True, max_length=50)
-    email = serializers.EmailField(required=True, max_length=50)
-    password = serializers.CharField(max_length=360, required=True)
-    is_leader = serializers.BooleanField(required=True)
-    divisi_id = serializers.IntegerField(required=True)
+class RelationSerializer(serializers.ModelSerializer):
+    student_id = serializers.IntegerField(required=True)
+    teacher_id = serializers.IntegerField(required=True)
+    is_active = serializers.BooleanField(required=True)
+    name = serializers.CharField(max_length=60, required=True)
+
     class Meta:
-        model = Teacher
+        model = Relation
         fields = '__all__'

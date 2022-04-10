@@ -1,7 +1,6 @@
-import jwt
 from rest_framework import serializers
-from app.models import Admin, Divisi, Teacher
-from raporsi.settings import SECRET_KEY
+
+from app.models import Admin, Divisi, Subject
 
 
 class AdminSerializer(serializers.ModelSerializer):
@@ -16,24 +15,16 @@ class DivisiSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class ListTeacherSerializer(serializers.ModelSerializer):
+class ListSubjectSerializer(serializers.ModelSerializer):
     divisi_detail = serializers.SerializerMethodField()
     updated_by = serializers.SerializerMethodField()
     created_by = serializers.SerializerMethodField()
     deleted_by = serializers.SerializerMethodField()
-    password = serializers.SerializerMethodField()
     class Meta:
-        model = Teacher
-        fields = ['id', 'name', 'email', 'password', 'is_leader', 'divisi_detail', 'created_at','updated_at',
+        model = Subject
+        fields = ['id', 'name', 'divisi_detail', 'created_at','updated_at',
                   'deleted_at', 'created_by', 'updated_by', 'deleted_by']
 
-    @staticmethod
-    def get_password(teacher_instance):
-        try:
-            password = jwt.decode(teacher_instance.password, SECRET_KEY, algorithms=["HS256"])
-            return password['password']
-        except Exception as e:
-            return str(e)
 
     @staticmethod
     def get_divisi_detail(divisi_instance):
@@ -69,12 +60,10 @@ class ListTeacherSerializer(serializers.ModelSerializer):
             return {"id": "", "name": ""}
 
 
-class TeacherSerializer(serializers.ModelSerializer):
+class SubjectSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True, max_length=50)
-    email = serializers.EmailField(required=True, max_length=50)
-    password = serializers.CharField(max_length=360, required=True)
-    is_leader = serializers.BooleanField(required=True)
     divisi_id = serializers.IntegerField(required=True)
+
     class Meta:
-        model = Teacher
+        model = Subject
         fields = '__all__'

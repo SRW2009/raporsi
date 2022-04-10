@@ -124,6 +124,12 @@ class Grade(models.Model):
                                    on_delete=models.SET_NULL)
     deleted_by = models.ForeignKey(Teacher, related_name='teacher_grade_deleted_at', null=True, blank=True,
                                    on_delete=models.SET_NULL)
+    created_by_admin = models.ForeignKey(Admin, related_name='admin_grade_created_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
+    updated_by_admin = models.ForeignKey(Admin, related_name='admin_grade_updated_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
+    deleted_by_admin = models.ForeignKey(Admin, related_name='admin_grade_deleted_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
     npb = JSONField()
     nhb = JSONField()
     nk = JSONField()
