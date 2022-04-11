@@ -30,7 +30,7 @@ class ListSubjectSerializer(serializers.ModelSerializer):
     def get_divisi_detail(divisi_instance):
         try:
             adm = Divisi.objects.get(id=divisi_instance.divisi_id)
-            return AdminSerializer(adm).data
+            return DivisiSerializer(adm).data
         except Exception as e:
             print(e)
             return {"id": "", "name": ""}

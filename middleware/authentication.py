@@ -60,7 +60,7 @@ class TeacherAuthentication(authentication.BaseAuthentication):
                 msg = 'Invalid token header. Token is already not active or deleted.'
                 raise exceptions.AuthenticationFailed(msg)
             data = jwt.decode(bearer, SECRET_KEY, algorithms=["HS256"])
-            if data['id'] != token.admin_id:
+            if data['id'] != token.teacher_id:
                 msg = 'Invalid token header. Token owner is not match.'
                 raise exceptions.AuthenticationFailed(msg)
             try:

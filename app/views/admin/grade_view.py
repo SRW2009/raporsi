@@ -4,7 +4,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 
 from app.models import Student, Grade
-from app.serializers.grade_serializer import GradeSerializer, ListGradeSerializer
+from app.serializers.admin.grade_serializer import GradeSerializer, ListGradeSerializer
 from middleware.authentication import AdminAuthentication
 
 

@@ -1,12 +1,12 @@
 from django.urls import path
 
-from app.views.admin_view import AdminLoginView, AdminSeedView, ListAdmin, CreateAdminView, UpdateDeleteAdminView
-from app.views.divisi_view import ListDivisiView, CreateDivisiView, UpdateDeleteDivisiView
-from app.views.grade_view import CreateGradeView, ListGrade, UpdateDeleteGradeView
-from app.views.relation_view import CreateRelationView, ListRelation, UpdateDeleteRelationView
-from app.views.student_view import ListStudent, CreateStudentView, UpdateDeleteStudentView
-from app.views.subject_view import ListSubject, CreateSubjectView, UpdateDeleteSubjectView
-from app.views.teacher_view import ListTeacher, CreateTeacherView, UpdateDeleteTeacherView
+from app.views.admin.admin_view import AdminLoginView, AdminSeedView, ListAdmin, CreateAdminView, UpdateDeleteAdminView
+from app.views.admin.divisi_view import ListDivisiView, CreateDivisiView, UpdateDeleteDivisiView
+from app.views.admin.grade_view import CreateGradeView, ListGrade, UpdateDeleteGradeView
+from app.views.admin.relation_view import CreateRelationView, ListRelation, UpdateDeleteRelationView
+from app.views.admin.student_view import ListStudent, CreateStudentView, UpdateDeleteStudentView
+from app.views.admin.subject_view import ListSubject, CreateSubjectView, UpdateDeleteSubjectView
+from app.views.admin.teacher_view import ListTeacher, CreateTeacherView, UpdateDeleteTeacherView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view()),

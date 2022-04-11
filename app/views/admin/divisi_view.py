@@ -1,11 +1,9 @@
 from django.utils import timezone
-from rest_framework import status, mixins
+from rest_framework import status
 from rest_framework import generics
-from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from app.models import Divisi
-from app.serializers.divisi_serializer import ListDivisiSerializer, DivisiSerializer
+from app.serializers.admin.divisi_serializer import ListDivisiSerializer, DivisiSerializer
 from middleware.authentication import AdminAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 
