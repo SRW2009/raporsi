@@ -7,18 +7,19 @@ services:
       - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=rapor
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=si
       - POSTGRES_PASSWORD=koalapanda
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     environment:
       - POSTGRES_NAME=rapor
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=si
       - POSTGRES_PASSWORD=koalapanda
     depends_on:
       - db
