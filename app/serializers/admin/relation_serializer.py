@@ -30,7 +30,7 @@ class ListRelationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Relation
-        fields = ['id', 'teacher', 'student','name', 'created_at', 'updated_at',
+        fields = ['id', 'teacher', 'student','name', 'is_active', 'created_at', 'updated_at',
                   'deleted_at', 'created_by', 'updated_by', 'deleted_by']
 
     @staticmethod

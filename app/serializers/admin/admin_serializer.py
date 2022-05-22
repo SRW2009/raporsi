@@ -33,7 +33,7 @@ class AdminLoginSerializer(serializers.Serializer):
         encoded_jwt = jwt.encode({"id": a.id, "email": a.email, "time": time.time()}, SECRET_KEY, algorithm="HS256")
         OauthAdmin.objects.create(admin_id=a.id, token=encoded_jwt)
         HLog.create_log(email, activity, True, "Login success")
-        return {"message": "success", "data": {"id": a.id, "email": a.email, "token":encoded_jwt}}
+        return {"message": "success", "data": {"id": a.id, "email": a.email, "name": a.name, "token":encoded_jwt}}
 
 
 class AdminSeed(serializers.Serializer):
