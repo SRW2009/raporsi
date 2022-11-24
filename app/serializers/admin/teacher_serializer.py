@@ -13,7 +13,7 @@ class AdminSerializer(serializers.ModelSerializer):
 class DivisiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Divisi
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'is_block']
 
 
 class ListTeacherSerializer(serializers.ModelSerializer):
@@ -38,8 +38,8 @@ class ListTeacherSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_divisi_detail(divisi_instance):
         try:
-            adm = Divisi.objects.get(id=divisi_instance.divisi_id)
-            return AdminSerializer(adm).data
+            div = Divisi.objects.get(id=divisi_instance.divisi_id)
+            return DivisiSerializer(div).data
         except Exception as e:
             print(e)
             return {"id": "", "name": ""}

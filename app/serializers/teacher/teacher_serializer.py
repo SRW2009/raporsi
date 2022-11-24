@@ -9,7 +9,7 @@ import time
 class DivisiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Divisi
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'is_block']
 
 class TeacherLoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)

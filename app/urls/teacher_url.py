@@ -4,6 +4,7 @@ from app.views.teacher.grade_view import ListGrade, UpdateDeleteGradeView, Creat
 from app.views.teacher.student_view import ListStudent
 from app.views.teacher.subject_view import ListSubject
 from app.views.teacher.teacher_view import TeacherLoginView
+from app.views.teacher.setting_view import ListSetting
 
 urlpatterns = [
     path('student', ListStudent.as_view()),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('mapel', ListSubject.as_view()),
     path('nilai/<int:pk>', UpdateDeleteGradeView.as_view()),
     path('nilai/', CreateGradeView.as_view()),
+    path('setting', ListSetting.as_view()),
 ]

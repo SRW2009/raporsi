@@ -33,7 +33,7 @@ class ListGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Grade
-        fields = ['id', 'student','semester','year', 'npb','nhb','nk', 'created_at', 'updated_at',
+        fields = ['id', 'student','semester','year', 'is_observation', 'npb','nhb','nk', 'created_at', 'updated_at',
                   'deleted_at', 'created_by_admin', 'updated_by_admin', 'deleted_by_admin',
                   'created_by', 'updated_by', 'deleted_by']
 
@@ -98,6 +98,7 @@ class GradeSerializer(serializers.ModelSerializer):
     student_id = serializers.IntegerField(required=True)
     year = serializers.CharField(max_length=60, required=True)
     semester = serializers.CharField(max_length=60, required=True)
+    is_observation = serializers.BooleanField(required=True)
     npb = serializers.JSONField()
     nhb = serializers.JSONField()
     nk = serializers.JSONField()

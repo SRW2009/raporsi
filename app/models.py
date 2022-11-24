@@ -24,6 +24,7 @@ class Admin(models.Model):
 
 class Divisi(models.Model):
     name = models.CharField(max_length=30)
+    is_block = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -115,6 +116,7 @@ class Grade(models.Model):
     student = models.ForeignKey(Student, null=True, blank=True, on_delete=models.SET_NULL)
     semester = models.CharField(max_length=60, blank=True, null=True)
     year = models.CharField(max_length=60, blank=True, null=True)
+    is_observation = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -167,3 +169,20 @@ class Log(models.Model):
     created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
+
+
+class Setting(models.Model):
+    variable = models.CharField(max_length=80)
+    value = JSONField()
+    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    created_by = models.ForeignKey(Admin, related_name='admin_setting_created_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
+    updated_by = models.ForeignKey(Admin, related_name='admin_setting_updated_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
+    deleted_by = models.ForeignKey(Admin, related_name='admin_setting_deleted_at', null=True, blank=True,
+                                   on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return "%s : %s" % (self.variable, self.value)

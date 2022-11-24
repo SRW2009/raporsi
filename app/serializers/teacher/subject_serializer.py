@@ -6,7 +6,7 @@ from app.models import Subject, Divisi
 class DivisiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Divisi
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'is_block']
 
 
 class ListSubjectSerializer(serializers.ModelSerializer):

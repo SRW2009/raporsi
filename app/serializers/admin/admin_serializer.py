@@ -3,7 +3,7 @@ from rest_framework import serializers
 import jwt
 
 from app.helper.response import SerializerHelper as HLog
-from app.models import Admin, OauthAdmin
+from app.models import Admin, Divisi, OauthAdmin, Subject
 from raporsi.settings import SECRET_KEY
 
 
@@ -41,12 +41,17 @@ class AdminSeed(serializers.Serializer):
     def seed():
         activity = "Seed Admin"
         try:
-            a = Admin.objects.get(email="koala@panda.com")
+            a = Admin.objects.get(email="raporadmin@si.com")
             return {"message": "super admin already registered"}
         except Exception as e:
-            HLog.create_log("koala@panda.com", activity, True, "SU successfully created")
-            encoded_password = jwt.encode({"password": "koala_panda"}, SECRET_KEY, algorithm="HS256")
-            Admin.objects.create(email="koala@panda.com", name='koala panda', password=encoded_password)
+            HLog.create_log("raporadmin@si.com", activity, True, "SU successfully created")
+            encoded_password = jwt.encode({"password": "sekolahimpiann1"}, SECRET_KEY, algorithm="HS256")
+            Admin.objects.create(email="raporadmin@si.com", name='Admin Rapor SI', password=encoded_password)
+            Divisi.objects.create(name="IT")
+            Divisi.objects.create(name="Tahfizh")
+            Divisi.objects.create(name="Kesantrian")
+            divTahfiz = Divisi.objects.get(name="Tahfizh")
+            Subject.objects.create(name="Normal Situation", divisi=divTahfiz)
         return{"message": "super admin created"}
 
 

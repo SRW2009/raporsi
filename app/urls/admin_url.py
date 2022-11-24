@@ -7,6 +7,7 @@ from app.views.admin.relation_view import CreateRelationView, ListRelation, Upda
 from app.views.admin.student_view import ListStudent, CreateStudentView, UpdateDeleteStudentView
 from app.views.admin.subject_view import ListSubject, CreateSubjectView, UpdateDeleteSubjectView
 from app.views.admin.teacher_view import ListTeacher, CreateTeacherView, UpdateDeleteTeacherView
+from app.views.admin.setting_view import ListSetting, CreateSettingView, UpdateDeleteSettingView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view()),
@@ -32,4 +33,7 @@ urlpatterns = [
     path('nilai/', CreateGradeView.as_view()),
     path('nilai', ListGrade.as_view()),
     path('nilai/<int:pk>', UpdateDeleteGradeView.as_view()),
+    path('setting/', CreateSettingView.as_view()),
+    path('setting', ListSetting.as_view()),
+    path('setting/<int:pk>', UpdateDeleteSettingView.as_view())
 ]
