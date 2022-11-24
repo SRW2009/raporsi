@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +26,7 @@ SECRET_KEY = 'django-insecure-_j6o%9-^p1tkehs50)-lhw*h$&*9yq)zd)stbxi#(cm2kfuv$)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 if DEBUG:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['restful-rapor.sekolahimpian.com']
 
@@ -81,10 +80,10 @@ if DEBUG:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'rapor',
-        'USER':'si',
-        'PASSWORD':'sekolahimpian',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
         "ATOMIC_REQUESTS": True,
         'PORT': 5432,
     }
