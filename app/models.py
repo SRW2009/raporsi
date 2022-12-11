@@ -43,7 +43,8 @@ class Teacher(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True, unique=True)
     password = models.CharField(max_length=360, blank=True, null=True)
-    divisi = models.ForeignKey(Divisi, blank=True, null=True, on_delete=models.SET_NULL)
+    divisi = models.ForeignKey(Divisi, related_name='divisi_teacher', blank=True, null=True, on_delete=models.SET_NULL)
+    divisi_block = models.ForeignKey(Divisi, related_name='divisi_block_teacher', blank=True, null=True, on_delete=models.SET_NULL)
     is_leader = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
@@ -61,6 +62,7 @@ class Teacher(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=60, blank=True, null=True)
+    abbreviation = models.CharField(max_length=10, blank=True, null=True)
     divisi = models.ForeignKey(Divisi, blank=True, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)

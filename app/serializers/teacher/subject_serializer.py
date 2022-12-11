@@ -14,7 +14,7 @@ class ListSubjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ['id', 'name', 'divisi_detail']
+        fields = ['id', 'name', 'abbreviation', 'divisi_detail']
 
 
     @staticmethod

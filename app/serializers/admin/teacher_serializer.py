@@ -18,13 +18,14 @@ class DivisiSerializer(serializers.ModelSerializer):
 
 class ListTeacherSerializer(serializers.ModelSerializer):
     divisi_detail = serializers.SerializerMethodField()
+    divisi_block_detail = serializers.SerializerMethodField()
     updated_by = serializers.SerializerMethodField()
     created_by = serializers.SerializerMethodField()
     deleted_by = serializers.SerializerMethodField()
     password = serializers.SerializerMethodField()
     class Meta:
         model = Teacher
-        fields = ['id', 'name', 'email', 'password', 'is_leader', 'divisi_detail', 'created_at','updated_at',
+        fields = ['id', 'name', 'email', 'password', 'is_leader', 'divisi_detail', 'divisi_block_detail', 'created_at','updated_at',
                   'deleted_at', 'created_by', 'updated_by', 'deleted_by']
 
     @staticmethod
@@ -39,6 +40,16 @@ class ListTeacherSerializer(serializers.ModelSerializer):
     def get_divisi_detail(divisi_instance):
         try:
             div = Divisi.objects.get(id=divisi_instance.divisi_id)
+            return DivisiSerializer(div).data
+        except Exception as e:
+            print(e)
+            return {"id": "", "name": ""}
+
+    @staticmethod
+    def get_divisi_block_detail(divisi_block_instance):
+        try:
+            if (divisi_block_instance.divisi_block_id == None): return None
+            div = Divisi.objects.get(id=divisi_block_instance.divisi_block_id)
             return DivisiSerializer(div).data
         except Exception as e:
             print(e)
@@ -75,6 +86,7 @@ class TeacherSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=360, required=True)
     is_leader = serializers.BooleanField(required=True)
     divisi_id = serializers.IntegerField(required=True)
+    divisi_block_id = serializers.IntegerField(required=False, allow_null=True)
     class Meta:
         model = Teacher
         fields = '__all__'

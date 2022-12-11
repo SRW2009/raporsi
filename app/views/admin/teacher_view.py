@@ -22,6 +22,8 @@ class CreateTeacherView(generics.CreateAPIView):
         serializer.validated_data['password'] = jwt.encode({"password": serializer.validated_data['password']}, SECRET_KEY, algorithm="HS256")
         try:
             Divisi.objects.get(id=serializer.validated_data['divisi_id'], deleted_at__isnull=True)
+            if (serializer.validated_data['divisi_block_id'] != None):
+                Divisi.objects.get(id=serializer.validated_data['divisi_block_id'], deleted_at__isnull=True)
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response({"message":"Teacher created successfully"}, status=status.HTTP_201_CREATED, headers=headers)
@@ -54,12 +56,13 @@ class UpdateDeleteTeacherView(generics.RetrieveUpdateDestroyAPIView):
                                                            SECRET_KEY, algorithm="HS256")
         try:
             Divisi.objects.get(id=serializer.validated_data['divisi_id'], deleted_at__isnull=True)
+            if (serializer.validated_data['divisi_block_id'] != None):
+                Divisi.objects.get(id=serializer.validated_data['divisi_block_id'], deleted_at__isnull=True)
             self.perform_update(serializer)
             if getattr(instance, '_prefetched_objects_cache', None):
                 # If 'prefetch_related' has been applied to a queryset, we need to
                 # forcibly invalidate the prefetch cache on the instance.
                 instance._prefetched_objects_cache = {}
-            print("koala")
             return Response({"message": "Teacher updated successfully"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)}, status=status.HTTP_406_NOT_ACCEPTABLE)

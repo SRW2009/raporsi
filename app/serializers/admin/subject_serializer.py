@@ -22,7 +22,7 @@ class ListSubjectSerializer(serializers.ModelSerializer):
     deleted_by = serializers.SerializerMethodField()
     class Meta:
         model = Subject
-        fields = ['id', 'name', 'divisi_detail', 'created_at','updated_at',
+        fields = ['id', 'name', 'abbreviation', 'divisi_detail', 'created_at','updated_at',
                   'deleted_at', 'created_by', 'updated_by', 'deleted_by']
 
 
@@ -62,6 +62,7 @@ class ListSubjectSerializer(serializers.ModelSerializer):
 
 class SubjectSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True, max_length=50)
+    abbreviation = serializers.CharField(required=False, allow_null=True)
     divisi_id = serializers.IntegerField(required=True)
 
     class Meta:

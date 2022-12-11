@@ -30,12 +30,22 @@ class TeacherLoginSerializer(serializers.Serializer):
         OauthTeacher.objects.create(teacher_id=a.id, token=encoded_jwt)
         return {"message": "success", "data": {
             "id": a.id, "email": a.email, "name": a.name, 
-            "token":encoded_jwt, "is_leader": a.is_leader, "divisi": get_divisi_detail(a.divisi_id)
+            "token":encoded_jwt, "is_leader": a.is_leader, "divisi": get_divisi_detail(a.divisi_id),
+            "divisi_block": get_divisi_block_detail(a.divisi_block_id)
         }}
 
 def get_divisi_detail(divisi_id):
     try:
         div = Divisi.objects.get(id=divisi_id)
+        return DivisiSerializer(div).data
+    except Exception as e:
+        print(e)
+        return {"id": "", "name": ""}
+
+def get_divisi_block_detail(divisi_block_id):
+    try:
+        if (divisi_block_id == None): return None
+        div = Divisi.objects.get(id=divisi_block_id)
         return DivisiSerializer(div).data
     except Exception as e:
         print(e)
